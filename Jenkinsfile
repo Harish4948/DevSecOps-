@@ -37,6 +37,12 @@ pipeline {
               sh 'docker push harish4948/numeric-app:""$GIT_COMMIT""'
               }}
            } 
+           stage('SonarQube') {
+            steps {
+              withCredentials([credentialsId:"sonarqube-token"]){
+              sh "echo ${SONARQUBE_TOKEN}"
+              }}
+           } 
            stage('Kubernetes Deploy - DEV') {
             steps {
               withKubeConfig([credentialsId:"kubeconfig"]){
