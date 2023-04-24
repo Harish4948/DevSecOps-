@@ -40,9 +40,10 @@ pipeline {
            stage('SonarQube') {
             environment {
               token = credentials('sonarqube-token')
+              ip = credentials('sonarqube-ip')
             }
             steps {
-              sh "echo ${token}" //test
+              sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://$ip:9000 -Dsonar.login=$token'
               }
            } 
            stage('Kubernetes Deploy - DEV') {
