@@ -38,10 +38,12 @@ pipeline {
               }}
            } 
            stage('SonarQube') {
+            environment {
+              sonarqube-token= credentials('sonarqube-token')
+            }
             steps {
-              withCredentials([credentialsId:"sonarqube-token", variable: 'sonarqube-token']){
               sh "echo ${sonarqube-token}" //test
-              }}
+              }
            } 
            stage('Kubernetes Deploy - DEV') {
             steps {
