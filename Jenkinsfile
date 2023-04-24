@@ -29,6 +29,15 @@ pipeline {
                 }
               }
         }
+        stage('SonarQube') {
+            environment {
+              token = credentials('sonarqube-token')
+              ip = credentials('sonarqube-ip')
+            }
+            steps {
+              sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$token'
+              }
+           } 
           stage('Docker Build and push') {
             steps {
               withDockerRegistry([credentialsId:"docker-hub", url: ""]){
@@ -37,15 +46,7 @@ pipeline {
               sh 'docker push harish4948/numeric-app:""$GIT_COMMIT""'
               }}
            } 
-           stage('SonarQube') {
-            environment {
-              token = credentials('sonarqube-token')
-              ip = credentials('sonarqube-ip')
-            }
-            steps {
-              sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://$ip:9000 -Dsonar.login=$token'
-              }
-           } 
+           
            stage('Kubernetes Deploy - DEV') {
             steps {
               withKubeConfig([credentialsId:"kubeconfig"]){
