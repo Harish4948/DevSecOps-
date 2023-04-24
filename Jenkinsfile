@@ -40,7 +40,7 @@ pipeline {
            stage('SonarQube') {
             steps {
               withCredentials([credentialsId:"sonarqube-token"]){
-              sh "echo ${sonarqube-token}"
+              sh "echo ${sonarqube-token}" //test
               }}
            } 
            stage('Kubernetes Deploy - DEV') {
