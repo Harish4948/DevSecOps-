@@ -15,10 +15,20 @@ pipeline {
               post { 
                 always { 
                   junit 'target/surefire-reports/*.xml'
-                  jacoco execPattern: 'target/jacoco.exec' //test_user
+                  jacoco execPattern: 'target/jacoco.exec'
                 }
               }
         } 
+        stage('Mutation Tests') {
+            steps {
+              sh "mvn org.pitest:pitest-maven:mutationCoverage"
+            }
+              post { 
+                always { 
+                  pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+                }
+              }
+        }
           stage('Docker Build and push') {
             steps {
               withDockerRegistry([credentialsId:"docker-hub", url: ""]){
