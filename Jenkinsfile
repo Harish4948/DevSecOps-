@@ -39,7 +39,7 @@ pipeline {
            } 
            stage('SonarQube') {
             steps {
-              withCredentials([credentialsId:"sonarqube-token"]){
+              withCredentials([credentialsId:"sonarqube-token", variable: 'sonarqube-token']){
               sh "echo ${sonarqube-token}" //test
               }}
            } 
