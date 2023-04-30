@@ -35,7 +35,7 @@ pipeline {
               // ip = credentials('sonarqube-ip')
             }
             steps {
-              withSonarQubeEnv('SonarQube'){
+              withSonarQubeEnv('sonarqube-token'){
               sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://localhost:9000'
               }
               timeout(time: 2, unit: 'MINUTES') {
