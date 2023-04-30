@@ -32,11 +32,16 @@ pipeline {
         stage('SonarQube') {
             environment {
               token = credentials('sonarqube-token')
-              ip = credentials('sonarqube-ip')
+              // ip = credentials('sonarqube-ip')
             }
             steps {
-              sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$token'
+              withSonarQubeEnv('SonarQube'){
+              sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://localhost:9000'
               }
+              timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
            } 
           stage('Docker Build and push') {
             steps {
