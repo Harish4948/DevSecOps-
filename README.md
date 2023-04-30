@@ -1,6 +1,6 @@
 # KodeKloud DevSecOps HandsOn
 
-#### A Repository tracking the progress of Implmenting a Secure Pipeline on Jenkins.
+#### A Repository tracking the progress of Implementing a Secure Pipeline on Jenkins.
 
 
 ```
