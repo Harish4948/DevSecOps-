@@ -51,6 +51,9 @@ pipeline {
             "OPA conftest":{
               sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
               sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml'
+            },
+            "KubeSec Scan":{
+              sh 'kubesec-scan.sh'
             }
               )
           }
