@@ -2,7 +2,7 @@ FROM adoptopenjdk/openjdk8:alpine-slim AS build
 WORKDIR /app
 COPY . .
 RUN addgroup -S pipeline && adduser -S k8s-pipeline -G pipeline
-RUN ./mvnw clean package
+RUN ./mvn clean package
 
 # Runtime stage
 FROM adoptopenjdk/openjdk8:alpine-slim
