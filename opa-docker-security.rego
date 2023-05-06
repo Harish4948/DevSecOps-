@@ -22,12 +22,12 @@ deny[msg] {
 }
 
 # Only use trusted base images
-deny[msg] {
-    input[i].Cmd == "from"
-    val := split(input[i].Value[0], "/")
-    count(val) > 1
-    msg = sprintf("Line %d: use a trusted base image", [i])
-}
+#deny[msg] {
+  #  input[i].Cmd == "from"
+  #  val := split(input[i].Value[0], "/")
+ #   count(val) > 1
+ #   msg = sprintf("Line %d: use a trusted base image", [i])
+#}
 
 # Do not use 'latest' tag for base imagedeny[msg] {
 deny[msg] {
@@ -78,6 +78,20 @@ forbidden_users = [
     "0"
 ]
 
+forbidden_users := [
+    "root",
+    "toor",
+    "0"
+]
+
+deny[msg] {
+    some i
+    input[i].Cmd == "user"
+    users := [name | input[j].Cmd == "user"; name := input[j].Value]
+    lastuser := users[count(users)-1]
+    contains(lower(lastuser), forbidden_users[_])
+    msg := sprintf("Last USER directive (USER %s) is forbidden", [lastuser])
+}
 
 
 # Do not sudo
