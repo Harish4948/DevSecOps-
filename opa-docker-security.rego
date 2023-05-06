@@ -71,7 +71,7 @@ deny[msg] {
     msg = "Do not run as root, use USER instead"
 }
 
-# ... but do not root
+# ... but do not root user
 forbidden_users = [
     "root",
     "toor",
