@@ -23,11 +23,11 @@ spec:
       - image: replace
         name: devsecops-container
         volumeMounts:
-      - mountPath: /tmp
-        name: test-volume
+        - mountPath: /tmp
+          name: test-volume
         securityContext:
           runAsNonRoot: true
-          runAsUser: 10001
+          # runAsUser: 10001
           readOnlyRootFilesystem: true
 ---
 apiVersion: v1
