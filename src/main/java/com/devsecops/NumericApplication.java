@@ -12,10 +12,9 @@ public class NumericApplication {
 	}
 
 	@Bean
-	public FilterRegistrationBean<ContentTypeOptionsHeaderFilter> contentTypeOptionsHeaderFilter() {
-	    FilterRegistrationBean<ContentTypeOptionsHeaderFilter> registrationBean = new FilterRegistrationBean<>();
-	    registrationBean.setFilter(new ContentTypeOptionsHeaderFilter());
-	    registrationBean.addUrlPatterns("/*");
-	    return registrationBean;
+	public void contentTypeOptionsHeaderFilter() {
+		FilterRegistrationBean<ContentTypeOptionsHeaderFilter> registrationBean = new FilterRegistrationBean<>();
+		registrationBean.setFilter(new ContentTypeOptionsHeaderFilter());
+		registrationBean.addUrlPatterns("/*");
 	}
-}
+	
