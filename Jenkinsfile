@@ -150,7 +150,8 @@ pipeline {
         parallel(
           "Deployment": {
             withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "bash k8s-PROD-deployment.sh"
+              sh 'sed -i "s#replace#${imageName}#g" k8s_PROD_deployment_service.yaml'
+              sh 'kubectl -n prod apply -f k8s_PROD_deployment_service.yaml'
             }
           },
           "Rollout Status": {
