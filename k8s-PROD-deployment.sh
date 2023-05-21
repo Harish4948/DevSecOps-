@@ -13,4 +13,4 @@ sed -i "s#replace#${imageName}#g" k8s_PROD-deployment_service.yaml
 #     echo "image name - ${imageName}"
 #     kubectl -n default set image deploy ${deploymentName} ${containerName}=${imageName} --record=true
 # fi
-kubectl -n prod apply -f k8s_PROD-deployment_service.yaml
+kubectl -n prod apply -f k8s_PROD_deployment_service.yaml
